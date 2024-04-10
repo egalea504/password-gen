@@ -24,16 +24,27 @@ const App = () => {
 		})
 		}, []);
 
-	const addPassword = () => {
-		Axios.post('http://localhost:3001/addpassword', {
-			password: password, 
-			title: title}, console.log("It worked!!"))
-			.catch((error) => {
-				if (error.reponse) {
-					console.log(error.response.data)
-				}
-			})
-	}
+		const addPassword = () => {
+			if (password && title) {
+				Axios.post('http://localhost:3001/addpassword', {
+					password: password,
+					title: title
+				})
+					.then((response) => {
+						console.log('Password added:', { password, title });
+						setPassword('');
+						setTitle('');
+						console.log("It worked!!");
+					})
+					.catch((error) => {
+						if (error.response) {
+							console.log(error.response.data);
+						}
+					});
+			} else {
+				alert('Please fill out both password and title.');
+			}
+		};
 
 	const decryptPassword = (encryption) => {
 		Axios.post('http://localhost:3001/decryptpassword', {
@@ -51,8 +62,8 @@ const App = () => {
 				} : val;
 		})
 		)
-		})
-	}
+		});
+	};
 
 	return (
 		<div className="App"> 
@@ -60,6 +71,7 @@ const App = () => {
 				<input 
 				type="text" 
 				placeholder="Ex: password123"
+				required
 				onChange={(event)=> {
 					setPassword(event.target.value);
 					console.log(password);
@@ -69,6 +81,7 @@ const App = () => {
 				<input 
 				type="text" 
 				placeholder="Ex: Facebook"
+				required
 				onChange={(event)=> {
 					setTitle(event.target.value);
 					console.log(title);
