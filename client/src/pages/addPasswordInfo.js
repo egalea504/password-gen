@@ -5,6 +5,21 @@
 import React, { useState, useEffect } from "react";
 import Axios from 'axios';
 
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const defaultTheme = createTheme(
+  {
+    palette: {
+      primary: {
+        main: '#00796b',
+      },
+      secondary: {
+        main: '#ef5350',
+      },
+    },
+  }
+);
+
 const AddPasswordInfo = () => {
 
 	const [password, setPassword] = useState("");
@@ -66,6 +81,7 @@ const AddPasswordInfo = () => {
 	};
 
 	return (
+		<ThemeProvider theme={defaultTheme}>
 		<div className="App"> 
 			<div className="AddingPass">
 				<input 
@@ -110,7 +126,9 @@ const AddPasswordInfo = () => {
 				})}
 			</div>
 		</div>
+		</ThemeProvider>
 	)
 };
+
 
 export default AddPasswordInfo;

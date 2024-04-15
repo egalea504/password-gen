@@ -6,21 +6,33 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import AppAppBar from './components/AppAppBar';
-import getLPTheme from './getLPTheme';
+import Hero from './components/Hero';
 
 export default function Home() {
   const [mode, setMode] = React.useState('light');
-  const LPtheme = createTheme(getLPTheme(mode));
 
   const toggleColorMode = () => {
     setMode((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
+  const defaultTheme = createTheme(
+    {
+      palette: {
+        primary: {
+          main: '#00796b',
+        },
+        secondary: {
+          main: '#ef5350',
+        },
+      },
+    }
+  );
 
   return (
-    <ThemeProvider theme={LPtheme}>
+    <ThemeProvider theme={defaultTheme}>
       <CssBaseline />
       <AppAppBar mode={mode} toggleColorMode={toggleColorMode} />
+      <Hero />
     </ThemeProvider>
   );
 }
