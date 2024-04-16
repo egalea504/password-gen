@@ -9,7 +9,7 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages';
 import SignIn from './pages/signin';
 import Dashboard from './pages/dashboard';
-import AddPasswordInfo from './pages/addPasswordInfo';
+import AddPasswordInfo from './pages/addPassword';
 import SignUp from './pages/signup';
 
 const App = () => {

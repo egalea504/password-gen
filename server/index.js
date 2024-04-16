@@ -18,6 +18,8 @@ const pool = new Pool({
 app.use(cors()); // Use cors middleware for parsing
 app.use(bodyParser.json());
 
+// add password to database for sake keeping
+// encrypts password for security
 app.post("/addpassword", (req, res) => {
   const { password, title } = req.body;
   const encryptedPassword = encrypt(password);
@@ -33,6 +35,7 @@ app.post("/addpassword", (req, res) => {
   });
 });
 
+// show all passwords
 app.get("/showpasswords", (req, res) => {
   pool.query("SELECT * FROM passwords", 
   (err, result) => {
@@ -45,6 +48,7 @@ app.get("/showpasswords", (req, res) => {
   });
 });
 
+// decryption function used before showing password in front end
 app.post("/decryptpassword", (req,res) => {
   res.send(decrypt(req.body));
 })
