@@ -9,7 +9,6 @@ import { Routes, Route } from 'react-router-dom';
 import Home from './pages';
 import SignIn from './pages/signin';
 import Dashboard from './pages/dashboard';
-import AddPasswordInfo from './pages/addPassword';
 import SignUp from './pages/signup';
 
 const App = () => {
@@ -19,7 +18,6 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
-          <Route path="/addpassword" element={<AddPasswordInfo />} />
           <Route path="/dashboard" element={<Dashboard />} />
        </Routes>
     </>

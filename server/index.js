@@ -8,7 +8,7 @@ const {encrypt, decrypt } = require("./encryptionHandler");
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'eliza',
+  user: 'development',
   host: 'localhost',
   database: 'password_manager',
   password: '',
