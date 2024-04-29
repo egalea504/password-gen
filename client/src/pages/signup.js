@@ -13,6 +13,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Axios from 'axios';
 import ErrorOutlineSharpIcon from '@mui/icons-material/ErrorOutlineSharp';
+import { useNavigate } from "react-router-dom";
 
 const defaultTheme = createTheme(
   {
@@ -34,6 +35,8 @@ export default function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
 
   // this state takes in error messages and displays them to the user after validation
   const [errorMessage, setErrorMessage] = useState("");
@@ -112,7 +115,8 @@ export default function SignUp() {
       password
     })
     .then((response) => {
-      console.log('User signed up!');
+      console.log(response);
+      navigate('/dashboard')
     })
     .catch((error) => {
       if (error.response) {
