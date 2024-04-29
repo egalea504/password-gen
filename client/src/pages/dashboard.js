@@ -18,6 +18,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from './dashboardList';
 import AddPasswordInfo from './addPassword';
 import PasswordList from './PasswordList';
+import Button from '@mui/material/Button';
 
 const drawerWidth = 240;
 
@@ -126,6 +127,16 @@ export default function Dashboard() {
                 <NotificationsIcon />
               </Badge>
             </IconButton>
+            <Button
+                color="primary"
+                sx={{ ml: "20px" }}
+                variant="contained"
+                size="small"
+                component="a"
+                href="/"
+              >
+                Log Out
+              </Button>
           </Toolbar>
         </AppBar>
         <Drawer variant="permanent" open={open}>
