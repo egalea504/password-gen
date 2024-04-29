@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "reset": "psql -U development -d password_manager < ./db/schema/create.sql -U development -d password_manager < ./db/schema/development.sql"
+    "reset": "psql -U development -d password_manager < ./db/schema/create.sql && psql -U development -d password_manager < ./db/schema/development.sql"
   },
   "author": "",
   "license": "ISC",

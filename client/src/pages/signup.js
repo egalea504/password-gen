@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,6 +11,8 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Axios from 'axios';
+import ErrorOutlineSharpIcon from '@mui/icons-material/ErrorOutlineSharp';
 
 const defaultTheme = createTheme(
   {
@@ -25,12 +28,96 @@ const defaultTheme = createTheme(
 );
 
 export default function SignUp() {
+
+  // state to store all user inputs
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  // this state takes in error messages and displays them to the user after validation
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const validateEmail = (email) => {
+   const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+   return regex.test(email);
+  }
+
+  // this resets the error message when user inputs data in field
+  const handleChangeField = (field, value) => {
+    // Clear error message if any field is updated
+    setErrorMessage('');
+
+    // Update the respective field's state
+    switch (field) {
+      case 'firstName':
+        setFirstName(value);
+        break;
+      case 'lastName':
+        setLastName(value);
+        break;
+      case 'email':
+        setEmail(value);
+        break;
+      case 'password':
+        setPassword(value);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleSubmit = (event) => {
+    // prevent default form action
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
+
+    if (firstName.length === 0) {
+      setErrorMessage('First name can not be empty.');
+      return;
+    }
+
+    if (lastName.length === 0) {
+      setErrorMessage('Last name can not be empty.');
+      return;
+    }
+
+    if (email.length === 0) {
+      setErrorMessage('Email can not be empty.');
+      return;
+    }
+
+    if (password.length === 0) {
+      setErrorMessage('Password can not be empty.');
+      return;
+    }
+
+    // use regex to validate email and send error if validation doesn't pass
+    if (!validateEmail(email)) {
+      setErrorMessage("Email is not valid.");
+      return;
+    }
+
+    if (password.length < 8) {
+      setErrorMessage(
+        'Password must contain greater than or equal to 8 characters.',
+      )
+      return;
+    }
+
+    // make post request to register info in db
+      Axios.post('http://localhost:3001/signup', {
+      first_name: firstName,
+      last_name: lastName,
+      email,
+      password
+    })
+    .then((response) => {
+      console.log('User signed up!');
+    })
+    .catch((error) => {
+      if (error.response) {
+        setErrorMessage(error.response.data);
+      };
     });
   };
 
@@ -63,6 +150,7 @@ export default function SignUp() {
                   id="firstName"
                   label="First Name"
                   autoFocus
+                  onChange={(e) => handleChangeField('firstName',e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -73,6 +161,7 @@ export default function SignUp() {
                   label="Last Name"
                   name="lastName"
                   autoComplete="family-name"
+                  onChange={(e) => handleChangeField('lastName',e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -83,6 +172,7 @@ export default function SignUp() {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
+                  onChange={(e) => handleChangeField('email',e.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -94,7 +184,18 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  onChange={(e) => handleChangeField('password',e.target.value)}
                 />
+                {errorMessage && (
+        <Box display="flex" alignItems="center" mt={2}>
+          {/* displays the MUI icon */}
+          <ErrorOutlineSharpIcon color="error" />
+
+          {/* displays the error message */}
+          <Typography color="error" ml={1}>
+            {errorMessage}
+          </Typography>
+          </ Box>)}
               </Grid>
             </Grid>
             <Button

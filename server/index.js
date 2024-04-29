@@ -18,6 +18,34 @@ const pool = new Pool({
 app.use(cors()); // Use cors middleware for parsing
 app.use(bodyParser.json());
 
+// add user to database when they sign up
+app.post("/signup", async (req, res) => {
+  const { first_name, last_name, email, password } = req.body;
+
+  try {
+    // check if email already exists
+    const userExists = await pool.query ( "SELECT * FROM users WHERE email = $1", [email]
+  )
+  // if user exists return error in front-end
+  if (userExists.rows.length > 0) {
+    return res.status(400).send("This email is already associated with an account." )
+  }
+
+  // else encrypt password to register user
+  const encryptedPassword = encrypt(password);
+
+  await pool.query("INSERT INTO users (first_name, last_name, email, password, iv) VALUES ($1, $2, $3, $4, $5)", [first_name, last_name, email, encryptedPassword.password, encryptedPassword.iv]
+)
+
+res.status(200).send("User registered successfuly.")
+  } catch (error) {
+    // this will catch any error message and show it in the front end as a server error
+    // letting the user know to try again
+    console.log(error);
+    res.status(400).send("Server error. Please try again.")
+  }
+});
+
 // add password to database for sake keeping
 // encrypts password for security
 app.post("/addpassword", (req, res) => {
