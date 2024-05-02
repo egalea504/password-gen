@@ -13,6 +13,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import ErrorOutlineSharpIcon from '@mui/icons-material/ErrorOutlineSharp';
+import { useState } from 'react';
+import Axios from 'axios';
 
 const defaultTheme = createTheme(
   {
@@ -28,14 +31,56 @@ const defaultTheme = createTheme(
 );
 
 export default function SignIn() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+    // this resets the error message when user inputs data in field
+    const handleChangeField = (field, value) => {
+      // Clear error message if any field is updated
+      setErrorMessage('');
+  
+      // Update the respective field's state
+      switch (field) {
+        case 'email':
+          setEmail(value);
+          break;
+        case 'password':
+          setPassword(value);
+          break;
+        default:
+          break;
+      }
+    };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
-  };
+
+    if (email.length === 0) {
+      setErrorMessage('Email can not be empty.');
+      return;
+    }
+
+    if (password.length === 0) {
+      setErrorMessage('Password can not be empty.');
+      return;
+    }
+
+        // make post request to register info in db
+        Axios.post('http://localhost:3001/signin', {
+          email,
+          password
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          if (error.response) {
+            setErrorMessage(error.response.data);
+          };
+        });
+      };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -64,6 +109,7 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              onChange={(e) => handleChangeField('email',e.target.value)}
             />
             <TextField
               margin="normal"
@@ -74,7 +120,18 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              onChange={(e) => handleChangeField('password',e.target.value)}
             />
+            {errorMessage && (
+        <Box display="flex" alignItems="center" mt={2}>
+          {/* displays the MUI icon */}
+          <ErrorOutlineSharpIcon color="error" />
+
+          {/* displays the error message */}
+          <Typography color="error" ml={1}>
+            {errorMessage}
+          </Typography>
+          </ Box>)}
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"

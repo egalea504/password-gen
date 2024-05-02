@@ -42,7 +42,7 @@ export default function SignUp() {
   const [errorMessage, setErrorMessage] = useState("");
 
   const validateEmail = (email) => {
-   const regex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+   const regex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
    return regex.test(email);
   }
 
