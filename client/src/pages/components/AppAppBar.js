@@ -84,7 +84,6 @@ function AppAppBar({ mode, toggleColorMode }) {
                 size="small"
                 component="a"
                 href="http://localhost:3000/signin"
-                target="_blank"
               >
                 Sign in
               </Button>
@@ -94,7 +93,6 @@ function AppAppBar({ mode, toggleColorMode }) {
                 size="small"
                 component="a"
                 href="http://localhost:3000/signup"
-                target="_blank"
               >
                 Sign up
               </Button>
