@@ -158,7 +158,7 @@ app.post("/addpassword", (req, res) => {
 
   try {
   const encryptedPassword = encrypt(password);
-  pool.query("INSERT INTO passwords (password, title, iv) VALUES ($1, $2, $3)", [encryptedPassword.password, title, encryptedPassword.iv]);
+  pool.query("INSERT INTO passwords (password, title, iv, user_id) VALUES ($1, $2, $3, $4)", [encryptedPassword.password, title, encryptedPassword.iv, req.session.user.id]);
   res.status(200).send("Password added successfully!");
 
 } catch (error) {
@@ -170,7 +170,7 @@ app.post("/addpassword", (req, res) => {
 
 // show all passwords
 app.get("/showpasswords", (req, res) => {
-  pool.query("SELECT * FROM passwords WHERE user_id = $1", [req.session.user.id], 
+  pool.query("SELECT * FROM passwords WHERE user_id = $1", [req.session.user.id],
   (err, result) => {
     if (err) {
       console.log(err);

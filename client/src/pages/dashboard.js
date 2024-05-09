@@ -21,8 +21,8 @@ import PasswordList from './PasswordList';
 import Button from '@mui/material/Button';
 // import Profile from './profile';
 // profile on hold
-import { useContext } from 'react';
-import { UserContext } from '../App';
+// import { useContext } from 'react';
+// import { UserContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
@@ -89,8 +89,8 @@ export default function Dashboard() {
   const [open, setOpen] = React.useState(false);
   const [section, setSection] = React.useState('AddPasswordInfo');
 
-  const { user, setUser } = useContext(UserContext);
-  const userName = user.name;
+  // const { user, setUser } = useContext(UserContext);
+  // const userName = user.name;
 
   const navigate = useNavigate();
 
@@ -108,7 +108,7 @@ export default function Dashboard() {
           if (response.status === 200) { // Ensure success status
             setTimeout(() => {
               navigate('/'); // Delay the redirect by 3 seconds
-              setUser(null); // Clear user state
+              // setUser(null); // Clear user state
             }, 4000);
           } else {
             console.error('Unexpected response during logout');
@@ -164,7 +164,7 @@ export default function Dashboard() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Welcome {userName} !
+              {/* Welcome {userName} ! */}
               </Typography>
             <Button
                 color="primary"

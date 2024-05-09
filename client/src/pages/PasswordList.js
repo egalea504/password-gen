@@ -2,63 +2,81 @@ import React, { useEffect, useState } from "react";
 import Axios from 'axios';
 
 export default function PasswordList() {
-
+  // State to hold the list of passwords
   const [passwordList, setPasswordList] = useState([]);
 
-  // get all passwords upon loading page
+  // Fetch all passwords when the component is mounted
   useEffect(() => {
-		Axios.get('http://localhost:3001/showpasswords')
-		.then( (response) => {
-			console.log(response.data.rows);
-			setPasswordList(response.data.rows);
-		})
-		.catch((error) => {
-			if (error.reponse) {
-			console.log(error.response.data)
-			}
-		})
-		}, []);
+    Axios.get('http://localhost:3001/showpasswords')
+      .then((response) => {
+        setPasswordList(
+          response.data.rows.map((item) => ({
+            ...item,
+            isDecrypted: false, // Initial state for decryption
+            originalTitle: item.title, // Keep the original website name
+          }))
+        );
+      })
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response.data);
+        }
+      });
+  }, []); // Empty dependency array means this effect runs once on mount
 
-    // function used to decrypt passwords saved with security in the database - before displaying
-  const decryptPassword = (encryption) => {
-		Axios.post('http://localhost:3001/decryptpassword', {
-			password: encryption.password,
-			iv: encryption.iv
-		})
-		.then((response) => {
-			setPasswordList(passwordList.map((val) => {
-				return val.id === encryption.id
-				? {
-					id: val.id,
-					password: val.password,
-					title: response.data,
-					iv: val.id
-				} : val;
-		})
-		)
-		});
-	};
+  // Function to toggle decryption
+  const toggleDecryption = (id, encryptedPassword, iv) => {
+    const targetItem = passwordList.find((item) => item.id === id);
+
+    if (targetItem.isDecrypted) {
+      // If already decrypted, revert to the original website name
+      setPasswordList((prevList) =>
+        prevList.map((item) =>
+          item.id === id
+            ? {
+                ...item,
+                title: item.originalTitle, // Revert to original name
+                isDecrypted: false, // Toggle off decryption
+              }
+            : item
+        )
+      );
+    } else {
+      // If not decrypted, decrypt it
+      Axios.post('http://localhost:3001/decryptpassword', {
+        password: encryptedPassword,
+        iv,
+      }).then((response) => {
+        setPasswordList((prevList) =>
+          prevList.map((item) =>
+            item.id === id
+              ? {
+                  ...item,
+                  title: response.data, // Set decrypted password
+                  isDecrypted: true, // Toggle on decryption
+                }
+              : item
+          )
+        );
+      });
+    }
+  };
 
   return (
     <ul>
-       <div className="Passwords">
-				{passwordList.map((val, key) => {
-					return (<div className="Password"
-					onClick={
-						() => {
-							decryptPassword({
-								password: val.password,
-								iv: val.iv,
-								id: val.id
-							})
-						}}
-						key={key}
-						>
-					<h3>{val.title}</h3>
-					</div>
-				)
-				})}
-			</div>
-  </ul>
+      <div className="Passwords">
+        {passwordList.map((item) => (
+          <div
+            className="Password"
+            onClick={() =>
+              toggleDecryption(item.id, item.password, item.iv)
+            }
+            key={item.id}
+          >
+            <h3>{item.title}</h3>
+          </div>
+        ))}
+      </div>
+    </ul>
   );
 }

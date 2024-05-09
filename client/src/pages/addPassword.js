@@ -63,7 +63,7 @@ const AddPasswordInfo = () => {
               autoFocus
 							onChange={(event)=> {
 								setTitle(event.target.value);
-								console.log(password);
+								console.log(title);
 							}}
             />
             <TextField
