@@ -12,8 +12,10 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import ErrorOutlineSharpIcon from '@mui/icons-material/ErrorOutlineSharp';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Axios from 'axios';
+import { useNavigate } from "react-router-dom";
+import { UserContext } from '../App';
 
 const defaultTheme = createTheme(
   {
@@ -33,6 +35,10 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
+  const { setUser } = useContext(UserContext);
+
+  const navigate = useNavigate();
+
     // this resets the error message when user inputs data in field
     const handleChangeField = (field, value) => {
       // Clear error message if any field is updated
@@ -51,6 +57,7 @@ export default function SignIn() {
       }
     };
 
+    Axios.defaults.withCredentials = true;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -71,7 +78,11 @@ export default function SignIn() {
           password
         })
         .then((response) => {
-          console.log("this is the response", response);
+          if (response) {
+            //sets global user to data user
+            setUser(response.data.user);
+            navigate('/dashboard')
+          }
         })
         .catch((error) => {
           if (error.response) {

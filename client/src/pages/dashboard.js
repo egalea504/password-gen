@@ -9,16 +9,22 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+// import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import NotificationsIcon from '@mui/icons-material/Notifications';
+// import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from './dashboardList';
 import AddPasswordInfo from './addPassword';
 import PasswordList from './PasswordList';
 import Button from '@mui/material/Button';
+// import Profile from './profile';
+// profile on hold
+import { useContext } from 'react';
+import { UserContext } from '../App';
+import { useNavigate } from 'react-router-dom';
+import Axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -81,7 +87,12 @@ const defaultTheme = createTheme(
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState(false);
-  const [section, setSection] = React.useState(null);
+  const [section, setSection] = React.useState('AddPasswordInfo');
+
+  const { user, setUser } = useContext(UserContext);
+  const userName = user.name;
+
+  const navigate = useNavigate();
 
   const toggleDrawer = () => {
     setOpen(!open);
@@ -90,6 +101,25 @@ export default function Dashboard() {
   const handleSectionChange = (section) => {
     setSection(section);
   }
+
+  const handleLogOut = () => {
+  Axios.post('http://localhost:3001/logout')
+        .then((response) => {
+          if (response.status === 200) { // Ensure success status
+            setTimeout(() => {
+              navigate('/'); // Delay the redirect by 3 seconds
+              setUser(null); // Clear user state
+            }, 4000);
+          } else {
+            console.error('Unexpected response during logout');
+          }
+        })
+        .catch((error) => {
+          if (error.response) {
+            console.log(error.response.data);
+          };
+        });
+      };
 
   return (
     <ThemeProvider theme={defaultTheme}>
@@ -123,10 +153,19 @@ export default function Dashboard() {
               Dashboard
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
-              </Badge>
+              {/* <Badge badgeContent={4} color="secondary">
+                {/* <NotificationsIcon /> */}
+              {/* </Badge> */}
             </IconButton>
+            <Typography
+              component="h1"
+              variant="h6"
+              color="inherit"
+              noWrap
+              sx={{ flexGrow: 1 }}
+            >
+              Welcome {userName} !
+              </Typography>
             <Button
                 color="primary"
                 sx={{ ml: "20px" }}
@@ -134,6 +173,7 @@ export default function Dashboard() {
                 size="small"
                 component="a"
                 href="/"
+                onClick={handleLogOut}
               >
                 Log Out
               </Button>
@@ -179,6 +219,7 @@ export default function Dashboard() {
                 height: 600,
               }}
             >
+              {/* {section === 'Profile' && <Profile />} */}
               {section === 'AddPasswordInfo' && <AddPasswordInfo />}
               {section === 'PasswordList' && <PasswordList />}
               {/* Add other sections here */}

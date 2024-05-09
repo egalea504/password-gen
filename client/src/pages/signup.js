@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Axios from 'axios';
 import ErrorOutlineSharpIcon from '@mui/icons-material/ErrorOutlineSharp';
 import { useNavigate } from "react-router-dom";
+import { UserContext } from '../App';
 
 const defaultTheme = createTheme(
   {
@@ -37,6 +38,8 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
+
+  const { setUser } = useContext(UserContext);
 
   // this state takes in error messages and displays them to the user after validation
   const [errorMessage, setErrorMessage] = useState("");
@@ -69,6 +72,8 @@ export default function SignUp() {
         break;
     }
   };
+
+  Axios.defaults.withCredentials = true;
 
   const handleSubmit = (event) => {
     // prevent default form action
@@ -115,8 +120,11 @@ export default function SignUp() {
       password
     })
     .then((response) => {
-      console.log(response);
-      navigate('/dashboard')
+      if (response) {
+        setUser(response.data.user);
+        navigate('/dashboard');
+      }
+      // console.log(response);
     })
     .catch((error) => {
       if (error.response) {

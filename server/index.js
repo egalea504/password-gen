@@ -1,5 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const session = require("express-session");
 const cors = require("cors"); // Import cors middleware
 const app = express();
 const PORT = 3001;
@@ -20,8 +21,35 @@ const pool = new Pool({
   port: 5432, // Default PostgreSQL port
 });
 
-app.use(cors()); // Use cors middleware for parsing
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["POST", "GET"],
+  credentials: true
+}
+)); // Use cors middleware for parsing
 app.use(bodyParser.json());
+app.use(
+  session({
+    secret: "secret",
+    resave: false,
+    saveUninitialized: false,
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24
+    }
+  })
+ );
+
+ // checks if the user is allowed to proceed to dashboard or not
+ // used in app.get(/dashboard)
+ function isAuthenticated(req, res, next) {
+  if (req.session.user) {
+    console.log('this is req session user', req.session.user);
+    next();
+  } else {
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+ }
 
 // add user to database when they sign up
 app.post("/signup", async (req, res) => {
@@ -39,8 +67,19 @@ app.post("/signup", async (req, res) => {
 // this is the hashpassword
 const hashedPass = await hashPassword(password);
 
-await pool.query("INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)", [first_name, last_name, email, hashedPass]),
-res.status(200).send("User registered successfuly.");
+pool.query("INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)", [first_name, last_name, email, hashedPass], (err, result) => {
+  if (result) {
+    const userInfo = pool.query ( "SELECT * FROM users WHERE email = $1", [email])
+    .then
+      req.session.user = {
+        id: userInfo.rows[0].id,
+        name: userInfo.rows[0].first_name,
+        email: userInfo.rows[0].email
+      };
+    
+    return res.json({Login: true, name: req.session.user});
+};
+});
   
   } catch (error) {
     // this will catch any error message and show it in the front end as a server error
@@ -60,7 +99,7 @@ app.post("/signin", async (req, res) => {
 
   //check if results have info - if not the user doesn't exist so it should send error
   const userExists = userQueryResult.rows.length > 0;
-  console.log("User exists:", userExists); // Log whether the user exists
+  // console.log("User exists:", userExists); // Log whether the user exists
 
   if (!userExists) {
     return res.status(400).send("No account associated with this email." );
@@ -70,18 +109,45 @@ app.post("/signin", async (req, res) => {
   bcrypt.compare(password, hash, function(err, result) {  // compare
     // if passwords match
     if (result) {
-          res.status(200).send("User signed in successfully.")
+          req.session.user = {
+            id: userQueryResult.rows[0].id,
+            name: userQueryResult.rows[0].first_name,
+            email: userQueryResult.rows[0].email
+          };
+          // console.log(req.session.user);
+          return res.json({Login: true, user: req.session.user});
     }
     // if passwords do not match
     else {
           res.status(400).send("Invalid password!");
     }
-  })
+  });
 
   } catch (error) {
     // this will catch any error message and show it in the front end as a server error
     // letting the user know to try again
     res.status(500).send("Server error. Please try again later.")
+  }
+});
+
+app.post('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send({ error: 'Logout failed' });
+    }
+    
+    // Clear the session cookie from the client
+    res.clearCookie('connect.sid'); // 'connect.sid' is the default session cookie name, adjust if needed
+    
+    res.status(200).send('Successfully logged out');
+  });
+});
+
+app.get('/dashboard', isAuthenticated, (req, res) => {
+  if (err) {
+    console.log(err);
+  } else {
+    res.status(200).send("Welcome to your dashboard!", req.session.user);
   }
 });
 
@@ -104,7 +170,7 @@ app.post("/addpassword", (req, res) => {
 
 // show all passwords
 app.get("/showpasswords", (req, res) => {
-  pool.query("SELECT * FROM passwords", 
+  pool.query("SELECT * FROM passwords WHERE user_id = $1", [req.session.user.id], 
   (err, result) => {
     if (err) {
       console.log(err);

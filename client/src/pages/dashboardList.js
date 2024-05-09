@@ -2,21 +2,23 @@ import React from "react";
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import PersonIcon from '@mui/icons-material/Person';
+// import PersonIcon from '@mui/icons-material/Person';
 import StorageIcon from '@mui/icons-material/Storage';
 import StarIcon from '@mui/icons-material/Star';
 import AddIcon from '@mui/icons-material/Add';
+
+//profile on hold
 
 const MainListItems = ({handleSectionChange}) => {
 
   return (
     <React.Fragment>
-      <ListItemButton onClick={() => handleSectionChange('AddPasswordInfo')}>
+      {/* <ListItemButton onClick={() => handleSectionChange('Profile')}>
         <ListItemIcon>
           <PersonIcon />
         </ListItemIcon>
         <ListItemText primary="Profile" />
-      </ListItemButton>
+      </ListItemButton> */}
       <ListItemButton onClick={() => handleSectionChange('AddPasswordInfo')}>
         <ListItemIcon>
           <AddIcon />
