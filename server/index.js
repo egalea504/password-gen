@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const session = require("express-session");
 const cors = require("cors"); // Import cors middleware
 const app = express();
+const { spawn } = require('child_process');
 const PORT = 3001;
 // changed encryption method to bcrypt for security measures for sign up but kept for passwords for now
 // will need to find a safer hash method as encryption has some safety concerns
@@ -51,42 +52,44 @@ app.use(
   }
  }
 
-// add user to database when they sign up
 app.post("/signup", async (req, res) => {
   const { first_name, last_name, email, password } = req.body;
 
   try {
-    // check if email already exists
-    const userExists = await pool.query ( "SELECT * FROM users WHERE email = $1", [email]
-  )
-  // if user exists return error in front-end
-  if (userExists.rows.length > 0) {
-    return res.status(400).send("This email is already associated with an account." )
-  }
+    // Check if email already exists
+    const userExistsResult = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    if (userExistsResult.rows.length > 0) {
+      return res.status(400).send("This email is already associated with an account.");
+    }
 
-// this is the hashpassword
-const hashedPass = await hashPassword(password);
+    // Hash the password
+    const hashedPass = await hashPassword(password);
 
-pool.query("INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)", [first_name, last_name, email, hashedPass], (err, result) => {
-  if (result) {
-    const userInfo = pool.query ( "SELECT * FROM users WHERE email = $1", [email])
-    .then
-      req.session.user = {
-        id: userInfo.rows[0].id,
-        name: userInfo.rows[0].first_name,
-        email: userInfo.rows[0].email
-      };
-    
-    return res.json({Login: true, name: req.session.user});
-};
-});
-  
+    // Insert the new user
+    await pool.query("INSERT INTO users (first_name, last_name, email, password) VALUES ($1, $2, $3, $4)", [first_name, last_name, email, hashedPass]);
+
+    // Retrieve user details for session
+    const userInfoResult = await pool.query("SELECT * FROM users WHERE email = $1", [email]);
+    const userInfo = userInfoResult.rows[0];
+
+    // Set user session
+    req.session.user = {
+      id: userInfo.id,
+      name: userInfo.first_name,
+      email: userInfo.email
+    };
+
+    return res.json({ Login: true, name: req.session.user });
+
   } catch (error) {
-    // this will catch any error message and show it in the front end as a server error
-    // letting the user know to try again later
-    res.status(500).send("Server error. Please try again later.")
+    // Log the error for debugging (optional)
+    console.error('Error during signup:', error);
+
+    // Respond with a server error
+    res.status(500).send("Server error. Please try again later.");
   }
 });
+
 
 // add user to database when they sign up
 app.post("/signin", async (req, res) => {
@@ -150,6 +153,22 @@ app.get('/dashboard', isAuthenticated, (req, res) => {
     res.status(200).send("Welcome to your dashboard!", req.session.user);
   }
 });
+
+app.post("/generatepassword", (req, res) => {
+  const { city, word1, word2 } = req.body;
+
+  //asynchronous call of generation pass
+  const pythonProcess = spawn('python3', ['password_generator.py']);
+
+  pythonProcess.stdinwrite(JSON.stringify({ city, word1, word2 }));
+  pythonProcess.stdin.end();
+
+  let password = '';
+    pythonProcess.stdout.on('data', (data) => {
+        password += data.toString();
+        console.log(password);
+    });
+})
 
 // add password to database for sake keeping
 // encrypts password for security

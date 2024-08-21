@@ -216,7 +216,7 @@ export default function Dashboard() {
                 p: 2,
                 display: 'flex',
                 flexDirection: 'column',
-                height: 600,
+                height: '100%',
               }}
             >
               {/* {section === 'Profile' && <Profile />} */}

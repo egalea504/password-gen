@@ -26,6 +26,14 @@ const AddPasswordInfo = () => {
 	const [password, setPassword] = useState("");
 	const [title, setTitle] = useState("");
 
+  const [city, setCity] = useState("");
+	const [word1, setWord1] = useState("");
+  const [word2, setWord2] = useState("");
+
+  const generatePassword = () => {
+
+  }
+
 		const addPassword = () => {
 				Axios.post('http://localhost:3001/addpassword', {
 					password: password,
@@ -51,6 +59,74 @@ const AddPasswordInfo = () => {
 			<Typography component="h1" variant="h5">
             Add Password
           </Typography>
+
+          <Box component="form" onSubmit={generatePassword} noValidate sx={{ mt: 1 }}>
+          <Typography component="h2" variant="h5">
+            Generate a password
+          </Typography>
+
+          <Typography component="h2" variant="h6">
+          What is a city you like that you have visited?
+          </Typography>
+			<TextField
+              margin="normal"
+              required
+              fullWidth
+              id="city"
+              label="City"
+              name="city"
+              autoComplete="city"
+              autoFocus
+							onChange={(event)=> {
+								setCity(event.target.value);
+								console.log(city);
+							}}
+            />
+
+<Typography component="h2" variant="h6">
+What is a word that you like (do not type a name) ?
+          </Typography>
+			<TextField
+              margin="normal"
+              required
+              fullWidth
+              id="word1"
+              label="Word"
+              name="word1"
+              autoComplete="word1"
+              autoFocus
+							onChange={(event)=> {
+								setWord1(event.target.value);
+								console.log(word1);
+							}}
+            />
+
+<Typography component="h2" variant="h6">
+What is a second word that you like (do not type a name) ?
+          </Typography>
+			<TextField
+              margin="normal"
+              required
+              fullWidth
+              id="word2"
+              label="Word"
+              name="word2"
+              autoComplete="word2"
+              autoFocus
+							onChange={(event)=> {
+								setWord2(event.target.value);
+								console.log(word2);
+							}}
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Generate Password
+            </Button>
+						</Box> 
 			 <Box component="form" onSubmit={addPassword} noValidate sx={{ mt: 1 }}>
 			<TextField
               margin="normal"
