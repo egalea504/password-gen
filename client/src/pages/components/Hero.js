@@ -15,7 +15,7 @@ export default function Hero() {
         width: '100%',
         backgroundImage:
           theme.palette.mode === 'light'
-            ? 'linear-gradient(180deg, #dcfaeb, #FFF)'
+            ? 'white'
             : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
         backgroundSize: '100% 20%',
         backgroundRepeat: 'no-repeat',
@@ -26,11 +26,11 @@ export default function Hero() {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          pt: { xs: 14, sm: 20 },
+          pt: { xs: 14, sm: 25 },
           pb: { xs: 8, sm: 12 },
         }}
       >
-        <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '70%' } }}>
+        <Stack spacing={2} useFlexGap sx={{ width: { xs: '100%', sm: '100%' } }}>
           <Typography
             variant="h1"
             sx={{
@@ -38,15 +38,17 @@ export default function Hero() {
               flexDirection: { xs: 'column', md: 'row' },
               alignSelf: 'center',
               textAlign: 'center',
-              fontSize: 'clamp(3.5rem, 10vw, 4rem)',
+              fontSize: 'clamp(10rem, 20vw, 4rem)',
+              fontFamily: 'Thunder-BoldLC',
+              lineHeight: '9rem'
             }}
           >
-            Password management at your fingertips
+            PASSWORD MANAGEMENT AT YOUR FINGERTIPS
           </Typography>
           <Typography
             textAlign="center"
             color="text.secondary"
-            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' } }}
+            sx={{ alignSelf: 'center', width: { sm: '100%', md: '100%' }, fontFamily: 'Thunder-SemiBoldLC', fontSize: '2rem', color: 'black'}}
           >
             keypAway stores all your passwords in a safe space, making it easy to access them from anywhere.
           </Typography>
@@ -57,7 +59,17 @@ export default function Hero() {
             useFlexGap
             sx={{ pt: 2, width: { xs: '100%', sm: 'auto' } }}
           >
-            <Button variant="contained" color="primary" href="http://localhost:3000/signup">
+            <Button variant="contained"
+            size="large"
+            color="primary" 
+            href="http://localhost:3000/signup"
+            sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.5rem', color: "white", backgroundColor:'black', boxShadow:"none",
+              '&:hover': {
+      backgroundColor: 'white', // Change background color on hover
+      color: 'black',              // Change text color on hover
+      boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' // Add shadow on hover
+    }
+            }}>
               Start now
             </Button>
           </Stack>

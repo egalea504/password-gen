@@ -1,8 +1,17 @@
+@font-face {
+  font-family: 'Thunder';
+  src: url('assets/fonts/Thunder-BoldLC.woff2') format('woff2'),
+       url('assets/fonts/Thunder-BoldLC.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .App {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  font-family: 'Thunder', sans-serif;
 }
 
 .AddingPass {

@@ -19,10 +19,10 @@ export default function Home() {
     {
       palette: {
         primary: {
-          main: '#00796b',
+          main: '#FFFF',
         },
         secondary: {
-          main: '#ef5350',
+          main: '#0000',
         },
       },
     }

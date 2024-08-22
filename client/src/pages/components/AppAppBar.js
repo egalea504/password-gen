@@ -8,13 +8,15 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 // import ToggleColorMode from './toggleColorMode';
 
-import keypAwayLogo from './keypAwayLogo.png'
+import keypAwayLogo from './keypaway2.png'
 
 const logoStyle = {
   width: '140px',
   height: 'auto',
   cursor: 'pointer',
+  alignItems: 'center',
   margin: '20px',
+  padding: '20px'
 };
 
 function AppAppBar({ mode, toggleColorMode }) {
@@ -27,10 +29,10 @@ function AppAppBar({ mode, toggleColorMode }) {
           boxShadow: 0,
           bgcolor: 'transparent',
           backgroundImage: 'none',
-          mt: 2,
+          mt: 2 ,
         }}
       >
-        <Container maxWidth="lg">
+        <Container maxWidth="xlg">
           <Toolbar
             variant="regular"
             sx={(theme) => ({
@@ -41,16 +43,12 @@ function AppAppBar({ mode, toggleColorMode }) {
               borderRadius: '999px',
               bgcolor:
                 theme.palette.mode === 'light'
-                  ? 'rgba(255, 255, 255, 0.4)'
+                  ? '#0000'
                   : 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(24px)',
               maxHeight: 40,
               border: '1px solid',
-              borderColor: 'divider',
-              boxShadow:
-                theme.palette.mode === 'light'
-                  ? `0 0 1px rgba(85, 166, 246, 0.1), 1px 1.5px 2px -1px rgba(85, 166, 246, 0.15), 4px 4px 12px -2.5px rgba(85, 166, 246, 0.15)`
-                  : '0 0 1px rgba(2, 31, 59, 0.7), 1px 1.5px 2px -1px rgba(2, 31, 59, 0.65), 4px 4px 12px -2.5px rgba(2, 31, 59, 0.65)',
+              borderColor: 'divider'
             })}
           >
             <Box
@@ -84,15 +82,17 @@ function AppAppBar({ mode, toggleColorMode }) {
                 size="small"
                 component="a"
                 href="http://localhost:3000/signin"
+                sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.2rem', color: "black"}}
               >
                 Sign in
               </Button>
               <Button
                 color="primary"
-                variant="contained"
+                variant="text"
                 size="small"
                 component="a"
                 href="http://localhost:3000/signup"
+                sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.2rem', color: "black"}}
               >
                 Sign up
               </Button>
