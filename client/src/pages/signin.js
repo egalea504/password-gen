@@ -21,7 +21,7 @@ const defaultTheme = createTheme(
   {
     palette: {
       primary: {
-        main: '#00796b',
+        main: '#000000',
       },
       secondary: {
         main: '#ef5350',
@@ -103,9 +103,9 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: '#00796b' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#000000' }}>
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.3rem', color: "black"}}>
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -119,6 +119,12 @@ export default function SignIn() {
               autoComplete="email"
               autoFocus
               onChange={(e) => handleChangeField('email',e.target.value)}
+              InputProps={{
+                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+              }}
+              InputLabelProps={{
+                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+              }}
             />
             <TextField
               margin="normal"
@@ -130,6 +136,12 @@ export default function SignIn() {
               id="password"
               autoComplete="current-password"
               onChange={(e) => handleChangeField('password',e.target.value)}
+              InputProps={{
+                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+              }}
+              InputLabelProps={{
+                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+              }}
             />
             {errorMessage && (
         <Box display="flex" alignItems="center" mt={2}>
@@ -145,7 +157,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2 , fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.5rem', color: "white", backgroundColor: "black"}}
             >
               Sign In
             </Button>
@@ -153,7 +165,8 @@ export default function SignIn() {
               <Grid item xs>
               </Grid>
               <Grid item>
-                <Link href="http://localhost:3000/signup" variant="body2">
+                <Link href="http://localhost:3000/signup" variant="body2"
+                sx={{ fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.3rem', color: "black"}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

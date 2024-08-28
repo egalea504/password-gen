@@ -8,75 +8,44 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-// import Badge from '@mui/material/Badge';
 import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-// import NotificationsIcon from '@mui/icons-material/Notifications';
 import MainListItems from './dashboardList';
 import AddPasswordInfo from './addPassword';
 import PasswordList from './PasswordList';
 import Button from '@mui/material/Button';
-// import Profile from './profile';
-// profile on hold
-// import { useContext } from 'react';
-// import { UserContext } from '../App';
 import { useNavigate } from 'react-router-dom';
 import Axios from 'axios';
 
-const drawerWidth = 240;
+const drawerWidth = 220;
 
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== 'open',
-})(({ theme, open }) => ({
+const AppBar = styled(MuiAppBar)(({ theme }) => ({
   zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(['width', 'margin'], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
+  marginLeft: drawerWidth,
+  width: `calc(100% - ${drawerWidth}px)`,
+  
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
-  ({ theme, open }) => ({
-    '& .MuiDrawer-paper': {
-      position: 'relative',
-      whiteSpace: 'nowrap',
-      width: drawerWidth,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      boxSizing: 'border-box',
-      ...(!open && {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-          width: theme.spacing(9),
-        },
-      }),
-    },
-  }),
-);
+const Drawer = styled(MuiDrawer)(({ theme }) => ({
+  '& .MuiDrawer-paper': {
+    position: 'relative',
+    whiteSpace: 'nowrap',
+    width: drawerWidth,
+    boxSizing: 'border-box',
+    backgroundColor: "white"
+  },
+}));
 
 const defaultTheme = createTheme(
   {
+    typography: {
+      fontFamily: 'Thunder-SemiBoldLC, Arial, sans-serif', // Fallback fonts
+    },
     palette: {
       primary: {
         main: '#00796b',
+        fontFamily: 'Thunder-SemiBoldLC', 
+        fontSize: '2rem'
       },
       secondary: {
         main: '#ef5350',
@@ -86,17 +55,9 @@ const defaultTheme = createTheme(
 );
 
 export default function Dashboard() {
-  const [open, setOpen] = React.useState(false);
   const [section, setSection] = React.useState('AddPasswordInfo');
 
-  // const { user, setUser } = useContext(UserContext);
-  // const userName = user.name;
-
   const navigate = useNavigate();
-
-  const toggleDrawer = () => {
-    setOpen(!open);
-  };
 
   const handleSectionChange = (section) => {
     setSection(section);
@@ -125,38 +86,13 @@ export default function Dashboard() {
     <ThemeProvider theme={defaultTheme}>
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
-        <AppBar position="absolute" open={open}>
+        <AppBar position="absolute">
           <Toolbar
             sx={{
               pr: '20px', // keep right padding when drawer closed
+              backgroundColor: "white",
             }}
           >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: '36px',
-                ...(open && { display: 'none' }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Dashboard
-            </Typography>
-            <IconButton color="inherit">
-              {/* <Badge badgeContent={4} color="secondary">
-                {/* <NotificationsIcon /> */}
-              {/* </Badge> */}
-            </IconButton>
             <Typography
               component="h1"
               variant="h6"
@@ -168,7 +104,7 @@ export default function Dashboard() {
               </Typography>
             <Button
                 color="primary"
-                sx={{ ml: "20px" }}
+                sx={{ ml: "20px", backgroundColor: "black", fontFamily: 'Thunder-SemiBoldLC', fontSize: '1rem'}}
                 variant="contained"
                 size="small"
                 component="a"
@@ -179,19 +115,7 @@ export default function Dashboard() {
               </Button>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'flex-end',
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
+        <Drawer variant="permanent">
           <Divider />
           <List component="nav">
             <MainListItems handleSectionChange={handleSectionChange} />
@@ -200,10 +124,7 @@ export default function Dashboard() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: "white",
             flexGrow: 1,
             height: '100vh',
             overflow: 'auto',
@@ -217,6 +138,7 @@ export default function Dashboard() {
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
+                fontFamily: 'Thunder-SemiBoldLC', fontSize: '2rem'
               }}
             >
               {/* {section === 'Profile' && <Profile />} */}

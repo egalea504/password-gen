@@ -7,19 +7,6 @@ import { useContext } from 'react';
 import { UserContext } from '../App';
 import { Avatar } from '@mui/material';
 
-// const defaultTheme = createTheme(
-//   {
-//     palette: {
-//       primary: {
-//         main: '#00796b',
-//       },
-//       secondary: {
-//         main: '#ef5350',
-//       },
-//     },
-//   }
-// );
-
 const Profile = () => {
 
   const { user } = useContext(UserContext);

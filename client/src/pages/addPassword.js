@@ -10,12 +10,15 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const defaultTheme = createTheme(
   {
+    typography: {
+      fontFamily: 'Thunder-SemiBoldLC, Arial, sans-serif', // Fallback fonts
+    },
     palette: {
       primary: {
-        main: '#00796b',
+        main: '#black',
       },
       secondary: {
-        main: '#ef5350',
+        main: '#white',
       },
     },
   }

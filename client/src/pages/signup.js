@@ -17,10 +17,11 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from '../App';
 
 const defaultTheme = createTheme(
-  {
+  { fontFamily: 'Thunder-SemiBoldLC', 
+    fontSize: '1.5rem',
     palette: {
       primary: {
-        main: '#00796b',
+        main: '#000000',
       },
       secondary: {
         main: '#ef5350',
@@ -145,13 +146,13 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
+          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+            <LockOutlinedIcon/>
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.3rem', color: "black"}}>
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}}>
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -163,6 +164,12 @@ export default function SignUp() {
                   label="First Name"
                   autoFocus
                   onChange={(e) => handleChangeField('firstName',e.target.value)}
+                  InputProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
+                  InputLabelProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -174,6 +181,12 @@ export default function SignUp() {
                   name="lastName"
                   autoComplete="family-name"
                   onChange={(e) => handleChangeField('lastName',e.target.value)}
+                  InputProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
+                  InputLabelProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -185,6 +198,12 @@ export default function SignUp() {
                   name="email"
                   autoComplete="email"
                   onChange={(e) => handleChangeField('email',e.target.value)}
+                  InputProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem' , letterSpacing:"0.02rem"},
+                  }}
+                  InputLabelProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -197,6 +216,12 @@ export default function SignUp() {
                   id="password"
                   autoComplete="new-password"
                   onChange={(e) => handleChangeField('password',e.target.value)}
+                  InputProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
+                  InputLabelProps={{
+                    style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                  }}
                 />
                 {errorMessage && (
         <Box display="flex" alignItems="center" mt={2}>
@@ -214,13 +239,14 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.5rem', color: "white", backgroundColor: "black"}}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="http://localhost:3000/signin" variant="body2">
+                <Link href="http://localhost:3000/signin" variant="body2"
+                sx={{ fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.3rem', color: "black"}}>
                   Already have an account? Sign in
                 </Link>
               </Grid>
