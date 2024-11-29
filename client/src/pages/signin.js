@@ -17,18 +17,19 @@ import Axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { UserContext } from '../App';
 
-const defaultTheme = createTheme(
-  {
+  const defaultTheme = createTheme({
+    typography: {
+      fontFamily: 'Martel Sans, sans-serif',
+    },
     palette: {
       primary: {
-        main: '#000000',
+        main: '#00796b',
       },
       secondary: {
         main: '#ef5350',
       },
     },
-  }
-);
+  });
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -105,7 +106,7 @@ export default function SignIn() {
         >
           <Avatar sx={{ m: 1, bgcolor: '#000000' }}>
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.3rem', color: "black"}}>
+          <Typography component="h1" variant="h5" sx={{ fontSize: '1.3rem', color: "black"}}>
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -120,10 +121,10 @@ export default function SignIn() {
               autoFocus
               onChange={(e) => handleChangeField('email',e.target.value)}
               InputProps={{
-                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
               }}
               InputLabelProps={{
-                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
               }}
             />
             <TextField
@@ -137,10 +138,10 @@ export default function SignIn() {
               autoComplete="current-password"
               onChange={(e) => handleChangeField('password',e.target.value)}
               InputProps={{
-                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
               }}
               InputLabelProps={{
-                style: { fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
               }}
             />
             {errorMessage && (
@@ -157,7 +158,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 , fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.5rem', color: "white", backgroundColor: "black"}}
+              sx={{ mt: 3, mb: 2 ,fontSize: '1.5rem', color: "white", backgroundColor: "black"}}
             >
               Sign In
             </Button>
@@ -166,7 +167,7 @@ export default function SignIn() {
               </Grid>
               <Grid item>
                 <Link href="http://localhost:3000/signup" variant="body2"
-                sx={{ fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.3rem', color: "black"}}>
+                sx={{fontSize: '1.3rem', color: "black"}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

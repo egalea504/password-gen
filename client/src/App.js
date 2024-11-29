@@ -4,6 +4,7 @@ import SignIn from './pages/signin';
 import Dashboard from './pages/dashboard';
 import SignUp from './pages/signup';
 import { useState, createContext } from 'react';
+import '/Users/eliza/personal.projects/coding/password generator/password-gen/client/src/App.css';
 
 export const UserContext = createContext(null);
 

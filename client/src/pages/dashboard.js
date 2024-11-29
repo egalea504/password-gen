@@ -36,23 +36,19 @@ const Drawer = styled(MuiDrawer)(({ theme }) => ({
   },
 }));
 
-const defaultTheme = createTheme(
-  {
-    typography: {
-      fontFamily: 'Thunder-SemiBoldLC, Arial, sans-serif', // Fallback fonts
+const defaultTheme = createTheme({
+  typography: {
+    fontFamily: 'Martel Sans, sans-serif'
+  },
+  palette: {
+    primary: {
+      main: '#00796b',
     },
-    palette: {
-      primary: {
-        main: '#00796b',
-        fontFamily: 'Thunder-SemiBoldLC', 
-        fontSize: '2rem'
-      },
-      secondary: {
-        main: '#ef5350',
-      },
+    secondary: {
+      main: '#ef5350',
     },
-  }
-);
+  },
+});
 
 export default function Dashboard() {
   const [section, setSection] = React.useState('AddPasswordInfo');
@@ -104,7 +100,7 @@ export default function Dashboard() {
               </Typography>
             <Button
                 color="primary"
-                sx={{ ml: "20px", backgroundColor: "black", fontFamily: 'Thunder-SemiBoldLC', fontSize: '1rem'}}
+                sx={{ ml: "20px", backgroundColor: "black", fontSize: '1rem'}}
                 variant="contained"
                 size="small"
                 component="a"
@@ -138,7 +134,7 @@ export default function Dashboard() {
                 display: 'flex',
                 flexDirection: 'column',
                 height: '100%',
-                fontFamily: 'Thunder-SemiBoldLC', fontSize: '2rem'
+                fontSize: '2rem'
               }}
             >
               {/* {section === 'Profile' && <Profile />} */}

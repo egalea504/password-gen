@@ -8,16 +8,6 @@ import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 // import ToggleColorMode from './toggleColorMode';
 
-import keypAwayLogo from './keypaway2.png'
-
-const logoStyle = {
-  width: '140px',
-  height: 'auto',
-  cursor: 'pointer',
-  alignItems: 'center',
-  margin: '20px',
-  padding: '20px'
-};
 
 function AppAppBar({ mode, toggleColorMode }) {
 
@@ -27,9 +17,8 @@ function AppAppBar({ mode, toggleColorMode }) {
         position="fixed"
         sx={{
           boxShadow: 0,
-          bgcolor: 'transparent',
+          bgcolor: 'white',
           backgroundImage: 'none',
-          mt: 2 ,
         }}
       >
         <Container maxWidth="xlg">
@@ -40,15 +29,8 @@ function AppAppBar({ mode, toggleColorMode }) {
               alignItems: 'center',
               justifyContent: 'space-between',
               flexShrink: 0,
-              borderRadius: '999px',
-              bgcolor:
-                theme.palette.mode === 'light'
-                  ? '#0000'
-                  : 'rgba(0, 0, 0, 0.4)',
               backdropFilter: 'blur(24px)',
               maxHeight: 40,
-              border: '1px solid',
-              borderColor: 'divider'
             })}
           >
             <Box
@@ -58,44 +40,63 @@ function AppAppBar({ mode, toggleColorMode }) {
                 alignItems: 'center',
                 ml: '-18px',
                 px: 0,
+                fontFamily: "Modak",
+                fontSize: "2.8rem",
+                paddingLeft: "2.5rem"
               }}
-            >
-              <img
-                src={keypAwayLogo
-                }
-                style={logoStyle}
-                alt="logo of keypAway"
-              />
+            >keypAway
               
             </Box>
             <Box
               sx={{
                 display: { xs: 'none', md: 'flex' },
-                gap: 0.5,
+                gap: 2.2,
                 alignItems: 'center',
               }}
             >
               {/* <ToggleColorMode mode={mode} toggleColorMode={toggleColorMode} /> */}
               <Button
-                color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                href="http://localhost:3000/signin"
-                sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.2rem', color: "black"}}
-              >
-                Sign in
-              </Button>
-              <Button
-                color="primary"
-                variant="text"
-                size="small"
-                component="a"
-                href="http://localhost:3000/signup"
-                sx={{fontFamily: 'Thunder-SemiBoldLC', fontSize: '1.2rem', color: "black"}}
-              >
-                Sign up
-              </Button>
+  variant="outlined" // Makes the button outlined
+  size="small"
+  component="a"
+  href="http://localhost:3000/signin"
+  disableElevation="true"
+  sx={{
+    fontSize: '1.0rem',
+    color: "black", 
+    borderColor: "black", // Ensures the border is black
+    borderRadius: "25px", // Rounds the edges
+    padding: "5px 20px", // Adjusts padding for rounded look
+    fontWeight: "bold", // Makes the text bold
+    "&:hover": {
+      backgroundColor: "transparent", // Keeps the background unchanged on hover
+      borderColor: "black", // Ensures border stays black on hover
+    }
+  }}
+>
+  SIGN IN
+</Button>
+<Button
+  variant="contained" // Makes the button filled
+  size="small"
+  component="a"
+  href="http://localhost:3000/signup"
+  disableElevation="true"
+  sx={{
+    fontSize: '1.0rem',
+    color: "white", // White text color
+    backgroundColor: "black", // Solid black background
+    borderColor: "black", // Ensures the border is black
+    borderRadius: "25px", // Rounds the edges
+    padding: "5px 20px", // Adjusts padding for rounded look
+    fontWeight: "bold", // Makes the text bold
+    "&:hover": {
+      backgroundColor: "black", // Keeps the background unchanged on hover
+    }
+  }}
+>
+  SIGN UP
+</Button>
             </Box>
           </Toolbar>
         </Container>

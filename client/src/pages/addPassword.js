@@ -11,7 +11,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 const defaultTheme = createTheme(
   {
     typography: {
-      fontFamily: 'Thunder-SemiBoldLC, Arial, sans-serif', // Fallback fonts
+      fontFamily: 'Martel Sans, sans-serif'
     },
     palette: {
       primary: {
