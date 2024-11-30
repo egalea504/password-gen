@@ -146,10 +146,10 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: 'primary.main' }}>
+          <Avatar sx={{ m: 1, bgcolor: 'black' }}>
             <LockOutlinedIcon/>
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{fontSize: '1.3rem', color: "black"}}>
+          <Typography component="h1" variant="h5" sx={{fontSize: '1.1rem', color: "black"}}>
             Sign up
           </Typography>
           <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3}}>
@@ -165,7 +165,7 @@ export default function SignUp() {
                   autoFocus
                   onChange={(e) => handleChangeField('firstName',e.target.value)}
                   InputProps={{
-                    style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                    style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
                   }}
                   InputLabelProps={{
                     style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
@@ -182,7 +182,7 @@ export default function SignUp() {
                   autoComplete="family-name"
                   onChange={(e) => handleChangeField('lastName',e.target.value)}
                   InputProps={{
-                    style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                    style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
                   }}
                   InputLabelProps={{
                     style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
@@ -199,7 +199,7 @@ export default function SignUp() {
                   autoComplete="email"
                   onChange={(e) => handleChangeField('email',e.target.value)}
                   InputProps={{
-                    style: {fontSize: '1.1rem' , letterSpacing:"0.02rem"},
+                    style: {fontSize: '1.1rem' , letterSpacing:"0.02rem", borderRadius: '15px'},
                   }}
                   InputLabelProps={{
                     style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
@@ -217,7 +217,7 @@ export default function SignUp() {
                   autoComplete="new-password"
                   onChange={(e) => handleChangeField('password',e.target.value)}
                   InputProps={{
-                    style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                    style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
                   }}
                   InputLabelProps={{
                     style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
@@ -239,14 +239,14 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2, fontSize: '1.5rem', color: "white", backgroundColor: "black"}}
+              sx={{ mt: 3, mb: 2, fontSize: '1.1rem', color: "white", backgroundColor: "black", borderRadius: '15px' &&onclick}}
             >
               Sign Up
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
                 <Link href="http://localhost:3000/signin" variant="body2"
-                sx={{ fontSize: '1.3rem', color: "black"}}>
+                sx={{ fontSize: '1.0rem', color: "black"}}>
                   Already have an account? Sign in
                 </Link>
               </Grid>

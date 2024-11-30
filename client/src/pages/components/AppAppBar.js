@@ -41,8 +41,8 @@ function AppAppBar({ mode, toggleColorMode }) {
                 ml: '-18px',
                 px: 0,
                 fontFamily: "Modak",
-                fontSize: "2.8rem",
-                paddingLeft: "2.5rem"
+                fontSize: "2.5rem",
+                paddingLeft: "1.5rem"
               }}
             >keypAway
               

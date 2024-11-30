@@ -1,11 +1,10 @@
 import * as React from 'react';
-import { alpha } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
 
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import example from './Group 10.png'
 
 export default function Hero() {
   return (
@@ -14,10 +13,6 @@ export default function Hero() {
     sx={(theme) => ({
       width: '100%',
       height: '100vh', // Full viewport height for the hero section
-      // backgroundImage:
-      //   theme.palette.mode === 'light'
-      //     ? 'white'
-      //     : `linear-gradient(#02294F, ${alpha('#090E10', 0.0)})`,
       backgroundSize: '100% 20%',
       backgroundRepeat: 'no-repeat',
       display: 'flex', // Use Flexbox for layout
@@ -27,7 +22,7 @@ export default function Hero() {
 {/* Left Box: 60% */}
 <Box
     sx={{
-      flex: 6.5, // 60% width
+      flex: 6, // 60% width
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
@@ -39,17 +34,17 @@ export default function Hero() {
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      paddingLeft: '7.5rem',
-      paddingRight: '5rem'
+      paddingLeft: '4rem',
+      paddingRight: '4rem'
     }}
       >
     <Typography
       variant="h1"
       sx={{
         textAlign: 'left',
-        fontSize: '5.5rem',
+        fontSize: '4.0rem',
         fontFamily: 'Modak',
-        lineHeight: '5rem',
+        lineHeight: '4rem',
       }}
     >
       PASSWORD MANAGEMENT AT YOUR FINGERTIPS
@@ -58,8 +53,9 @@ export default function Hero() {
       variant="h1"
       sx={{
         textAlign: 'left',
-        fontSize: '1.2rem',
-        lineHeight: '2.1rem',
+        fontSize: '1.1rem',
+        lineHeight: '1.5srem',
+        paddingRight: '250px'
       }}
     >
       keypAway stores all your passwords in a safe space, making it easy to access them from anywhere.
@@ -68,8 +64,7 @@ export default function Hero() {
     <Stack
       direction="row"
       spacing={2}
-      paddingLeft="22rem"
-      sx={{ mt: 4 }}
+      sx={{ mt: 10, justifyContent: 'center' }}
     >
       <Button
   variant="outlined" // Makes the button outlined
@@ -86,7 +81,7 @@ export default function Hero() {
     padding: "5px 40px", // Adjusts padding for rounded look
     fontWeight: "bold", // Makes the text bold
     "&:hover": {
-      backgroundColor: "transparent", // Keeps the background unchanged on hover
+      backgroundColor: "white", // Keeps the background unchanged on hover
       borderColor: "black", // Ensures border stays black on hover
     }
   }}
@@ -119,20 +114,110 @@ export default function Hero() {
   {/* Right Box: 40% */}
   <Box
     sx={{
-      flex: 3.5, // 40% width
+      flex: 4, // 40% width
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      // backgroundImage:
-      //   theme.palette.mode === 'light'
-      //     ? 'url("/static/images/templates/templates-images/hero-light.png")'
-      //     : 'url("/static/images/templates/templates-images/hero-dark.png")',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       borderRadius: '10px',
       backgroundColor: '#CEE7FF'
     }}
-    />
+    >
+
+{/* <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      backgroundColor: '#FFFFFF',
+      borderRadius: '15px',
+      border: 'solid',
+      padding: '0rem 1.2rem 4.5rem'
+    }}
+      >
+<Stack
+direction="column"
+spacing={2}
+sx={{ mt: 5.5, justifyContent: 'center' }}
+>
+
+<Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      backgroundColor: '#E9E9E9',
+      borderRadius: '15px'
+    }}
+      >
+  
+<Typography
+      variant="h1"
+      sx={{
+        textAlign: 'center',
+        lineHeight: '1.5srem',
+        fontSize: '2.8rem',
+        fontFamily: 'Modak',
+        padding: '1rem 3.5rem 0rem 3.5rem',
+      }}
+    >
+      nh9UB*aK_9
+    </Typography>
+    <Typography
+      variant="h1"
+      sx={{
+        textAlign: 'left',
+        fontSize: '1.1rem',
+        fontWeight: 'bolder',
+        color: '#656565',
+        padding: '0rem 2rem 1.5rem'
+      }}
+    >
+      eli@keypaway.com
+    </Typography>
+
+   
+      
+      </Box>
+
+      <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      backgroundColor: '#E9E9E9',
+      borderRadius: '15px'
+    }}
+      >
+
+<Typography
+      variant="h1"
+      sx={{
+        textAlign: 'center',
+        lineHeight: '1.5srem',
+        fontSize: '0.8rem',
+        fontWeight: 'bold',
+        color: 'white',
+        backgroundColor: 'black',
+        borderRadius: '15px',
+        padding: '1rem',
+      }}
+    >
+      GENERATE NOW
+    </Typography>
+      
+      </Box>
+
+      </Stack>
+      </Box> */}
+
+<img src={example} style={{ width: '30rem', height: 'auto' }}/>
+
+    </Box>
+
+
+
     </Box>
   );
 }

@@ -106,7 +106,7 @@ export default function SignIn() {
         >
           <Avatar sx={{ m: 1, bgcolor: '#000000' }}>
           </Avatar>
-          <Typography component="h1" variant="h5" sx={{ fontSize: '1.3rem', color: "black"}}>
+          <Typography component="h1" variant="h5" sx={{ fontSize: '1.1rem', color: "black"}}>
             Sign in
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
@@ -121,7 +121,7 @@ export default function SignIn() {
               autoFocus
               onChange={(e) => handleChangeField('email',e.target.value)}
               InputProps={{
-                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
               }}
               InputLabelProps={{
                 style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
@@ -138,7 +138,7 @@ export default function SignIn() {
               autoComplete="current-password"
               onChange={(e) => handleChangeField('password',e.target.value)}
               InputProps={{
-                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
               }}
               InputLabelProps={{
                 style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
@@ -158,7 +158,7 @@ export default function SignIn() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 ,fontSize: '1.5rem', color: "white", backgroundColor: "black"}}
+              sx={{ mt: 3, mb: 2 ,fontSize: '1.1rem', color: "white", backgroundColor: "black", borderRadius: '15px'}}
             >
               Sign In
             </Button>
@@ -167,7 +167,7 @@ export default function SignIn() {
               </Grid>
               <Grid item>
                 <Link href="http://localhost:3000/signup" variant="body2"
-                sx={{fontSize: '1.3rem', color: "black"}}>
+                sx={{fontSize: '1rem', color: "black"}}>
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
