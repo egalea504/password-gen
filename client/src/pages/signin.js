@@ -18,6 +18,17 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from '../App';
 
   const defaultTheme = createTheme({
+    components: {
+      // Name of the component
+      MuiTextField: {
+        "&:hover fieldset": {
+  color: "#000000" // Change label color when input is focused
+},
+"&:hover label": {
+  color: "#000000" // Change label color when input is hovered
+}
+      },
+    },
     typography: {
       fontFamily: 'Martel Sans, sans-serif',
     },
@@ -121,10 +132,14 @@ export default function SignIn() {
               autoFocus
               onChange={(e) => handleChangeField('email',e.target.value)}
               InputProps={{
-                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px', "&:hover fieldset": {
+      borderColor: "black", // Ensures border stays black on hover
+    }},
               }}
               InputLabelProps={{
-                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", "&:hover fieldset": {
+      borderColor: "black", // Ensures border stays black on hover
+    }},
               }}
             />
             <TextField
@@ -138,10 +153,14 @@ export default function SignIn() {
               autoComplete="current-password"
               onChange={(e) => handleChangeField('password',e.target.value)}
               InputProps={{
-                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px'},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", borderRadius: '15px', "&:hover fieldset": {
+      borderColor: "black", // Ensures border stays black on hover
+    }},
               }}
               InputLabelProps={{
-                style: {fontSize: '1.1rem', letterSpacing:"0.02rem"},
+                style: {fontSize: '1.1rem', letterSpacing:"0.02rem", "&:hover fieldset": {
+      borderColor: "black", // Ensures border stays black on hover
+    }},
               }}
             />
             {errorMessage && (

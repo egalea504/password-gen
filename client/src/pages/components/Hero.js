@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import example from './Group 10.png'
 
+
 export default function Hero() {
   return (
     <Box
